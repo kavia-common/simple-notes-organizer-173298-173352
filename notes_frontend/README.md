@@ -1,45 +1,88 @@
-# vue-kavia
+# Simple Notes Frontend (Vue 3 + Vite)
 
-This template should help get you started developing with Vue 3 in Vite.
+A simple, modern notes organizer that lets you create, edit, delete, and tag notes. This app follows the "Ocean Professional" theme (blue primary with amber accents) and persists data to localStorage. No backend required.
 
-## Recommended IDE Setup
+- Tech: Vue 3, Vite, TypeScript, Pinia
+- Persistence: localStorage
+- Port: 3000
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Quick Start
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
+1) Install dependencies
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
+2) Run in development (served on port 3000)
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
+3) Build for production
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+The Vite config is pre-set to:
+- host 0.0.0.0
+- port 3000 (strict)
+- CORS enabled
 
-```sh
-npm run test:unit
-```
+## Features
 
-### Lint with [ESLint](https://eslint.org/)
+- Ocean Professional theme with:
+  - Primary: #2563EB
+  - Secondary/Success: #F59E0B
+  - Error: #EF4444
+  - Background: #f9fafb
+  - Surface: #ffffff
+  - Text: #111827
+- Layout:
+  - Sidebar: brand, New Note, filters, tag manager
+  - Main: notes list (left), editor (right)
+- Notes:
+  - Create, select, edit title/body
+  - Delete selected note
+  - Tagging: add/remove tags on a note, filter by tag
+  - Search notes by title/body
+  - Auto-save to localStorage
+  - Seed data on first load
+- Zero backend dependencies
 
-```sh
-npm run lint
-```
+## Manual Testing Checklist
+
+- Launch the app: `npm run dev` and open the provided URL on port 3000.
+- Sidebar:
+  - Click "＋ New Note" creates and selects a new note.
+  - Add a tag via input then "Add", see it appear in the tags list.
+  - Click a tag to filter notes; click "All notes" to clear filter.
+  - Delete a tag via ✕ and confirm; it removes from all notes.
+- Notes List:
+  - Use the search input to filter notes by title/body text.
+  - Click a note to select it; it highlights as active.
+- Editor:
+  - Change the title and click elsewhere; it saves.
+  - Type content and click elsewhere; it saves.
+  - Add a tag in the editor; it shows as a chip and on the note list meta.
+  - Remove a tag chip via ✕.
+  - Click Delete to remove the selected note; confirm.
+- Persistence:
+  - Reload the page; notes, tags, and selection persist.
+
+## Project Structure (key files)
+
+- src/assets/theme.css — Ocean theme CSS variables and base UI tokens
+- src/utils/storage.ts — localStorage load/save and seed
+- src/store/notes.ts — Pinia store (notes, tags, filters, actions)
+- src/components/Sidebar.vue — navigation, filters, tag manager, new note
+- src/components/NotesList.vue — search and list of notes
+- src/components/NoteEditor.vue — title/body editor and tag chips
+- src/components/TagChips.vue — chip UI with optional remove
+- src/components/EmptyState.vue — empty selection state (not currently used)
+- src/App.vue — overall layout
+
+## Notes
+
+- No environment variables are required.
+- No external APIs are called; this app works fully offline using your browser storage.
+- Routing remains installed for template compatibility, but the app uses a single-page layout by default.
